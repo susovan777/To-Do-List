@@ -8,10 +8,11 @@
     <title>TO-DO List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header class="text-center m-5">
+    <header class="text-center text-light m-5">
         <h1 class="">To-Do</h1>
         <h2 id="time" class="">Sunday, Oct 15, 2023</h2>
     </header>
@@ -20,12 +21,12 @@
         <!-- Task adding section -->
         <form class="input-group mb-3">
             <input type="text" class="form-control " placeholder="New to do..." >
-            <input type="button" value="+" class="btn btn-outline-secondary" id="add-task ">
+            <input type="button" value="+" class="btn btn-outline-light fw-bold" id="add-task ">
         </form>
 
         <!-- Clear button section -->
-        <div class="clear">
-            <button>Clear All</button>
+        <div class="d-flex justify-content-end mb-4">
+            <button type="button" class="btn btn-light py-2">Clear All</button>
         </div>
 
         <!-- To-do list section -->
