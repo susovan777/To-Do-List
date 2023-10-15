@@ -16,13 +16,12 @@ addBtn.addEventListener('click', addTask);
 // Trigger event when 'enter' key is pressed
 task_input.addEventListener('keypress', (e) => {
     // console.log(e);
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
         e.preventDefault();
         addTask();
-        // addBtn.click();
+        addBtn.click();
     }
 });
-
 // --------------------------------------------------------------------------------
 
 // 🚩🚩 Task list section 🚩🚩
@@ -49,7 +48,7 @@ function addTask() {
         // Add the innerHTML for checkbox and label text
         newLi.innerHTML = `
             <input type="checkbox" id="task${count}" class="form-check-input me-1">
-            <label for="task${count}" id="task-label" class="form-check-label">${task_input.value}</label>
+            <label for="task${count}" class="task-label" class="form-check-label">${task_input.value}</label>
         `;
         // Save the task to the local storage
         localStorage.setItem(`task${count}`, task_input.value)
@@ -61,11 +60,38 @@ function addTask() {
         task_input.value = "";
         task_input.focus();
     }
+
+    // get the array of all label elements of list
+    const task = document.querySelectorAll(".task-label");
+    // loop through the all list element
+    for(let i = 0; i < task.length; i++) {
+        // for each list label add click event 
+        task[i].addEventListener('click', () => {
+            // get the checkbox value and check is it checked or not
+            const checkTask = document.querySelector(`#task${i+1}`).checked; // true or false
+            // if the checkbox is checked then change the text to strikethrough and vice versa
+            if(!checkTask) {
+                task[i].style = "text-decoration: line-through;"
+            } else {
+                task[i].style = "text-decoration: none;"
+            }
+        })
+    }
 }
 
+// --------------------------------------------------------------------------------
+
+
 // document.addEventListener('DOMContentLoaded', () => {
-//     // Create new 'li' element 
-//     // let newLi = document.createElement("li");
+//     // Create 'li' element 
+//     let li_el = document.createElement("li");
+//     li_el.setAttribute("class", "list-group-item p-3");
+//     const storageValue = localStorage.getItem()
+//     li_el.innerHTML = `
+//         <input type="checkbox" id="task${count}" class="form-check-input me-1">
+//         <label for="task${count}" id="task-label" class="form-check-label">${task_input.value}</label>
+//         `;
+//     td_ul.innerHTML = 
 // })
 
 // 🚩🚩 Clear button section 🚩🚩
@@ -73,7 +99,7 @@ function addTask() {
 const clearBtn = document.querySelector(".clear-all");
 clearBtn.addEventListener('click', () => {
     td_ul.innerHTML = "";
+    count = 0;
     // Also clear the local storage
     localStorage.clear();
 })
-
