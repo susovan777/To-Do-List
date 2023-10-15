@@ -20,25 +20,25 @@
     <main class="container">
         <!-- Task adding section -->
         <form class="input-group mb-3">
-            <input type="text" class="form-control " placeholder="New to do..." >
-            <input type="button" value="+" class="btn btn-outline-light fw-bold" id="add-task ">
+            <input type="text" class="form-control task-input" name="task-input" placeholder="New to do..." >
+            <input type="button" value="+" class="btn btn-outline-light fw-bold" id="add-task-btn">
         </form>
 
         <!-- Clear button section -->
         <div class="d-flex justify-content-end mb-4">
-            <button type="button" class="btn btn-light py-2">Clear All</button>
+            <button type="button" class="clear-all btn btn-light py-2">Clear All</button>
         </div>
 
         <!-- To-do list section -->
         <ul id="todo-list" class="list-group border">
-            <li class="list-group-item p-3">
+            <!-- <li class="list-group-item p-3">
                 <input type="checkbox" id="todo-1" class="form-check-input me-1">
                 <label for="todo-1" class="form-check-label">Task 1</label>
             </li>
             <li class="list-group-item p-3">
                 <input type="checkbox" id="todo-2" class="form-check-input me-1">
                 <label for="todo-2" class="form-check-label">Task 2</label>
-            </li>
+            </li> -->
         </ul>
     </main>
 
