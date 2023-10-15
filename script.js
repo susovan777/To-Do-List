@@ -1,13 +1,15 @@
 
 const addBtn = document.getElementById("add-task-btn");
 
+// Get the 'ul' element for adding 'li'
+const td_ul = document.getElementById("todo-list");
 
 addBtn.addEventListener('click', () => {
     // Get the task adding input
     const task_input = document.querySelector(".task-input");
-    console.log(task_input.value); 
+    console.log(task_input.value);
 
-    
+
     // Create new 'li' element 
     let newLi = document.createElement("li");
 
@@ -23,7 +25,9 @@ addBtn.addEventListener('click', () => {
     // Append the 'li' element to the 'ul' element
     td_ul.append(newLi);
 
-    
-    
+    // After adding task to the list 🦷 clear the input field and 🦷 focus on the input field
+    task_input.value = "";
+    task_input.focus();
+
 })
 
