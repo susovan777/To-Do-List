@@ -1,4 +1,9 @@
 
+// Current date by this format: "day_name, month day, year"
+let time = new Date().toLocaleDateString("en-us", { weekday: "long", year: "numeric", month:"short", day: "numeric" });
+document.getElementById("time").innerHTML = time;
+
+
 const addBtn = document.getElementById("add-task-btn");
 
 // Get the 'ul' element for adding 'li'
@@ -20,9 +25,9 @@ addBtn.addEventListener('click', () => {
 
         // Add the innerHTML for checkbox and label text
         newLi.innerHTML = `
-    <input type="checkbox" id="todo-1" class="form-check-input me-1">
-    <label for="todo-1" class="form-check-label">${task_input.value}</label>
-    `;
+            <input type="checkbox" id="task" class="form-check-input me-1">
+            <label for="task" id="task-label" class="form-check-label">${task_input.value}</label>
+        `;
 
         // Append the 'li' element to the 'ul' element
         td_ul.append(newLi);
