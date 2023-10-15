@@ -33,3 +33,9 @@ addBtn.addEventListener('click', () => {
     }
 })
 
+// Get the clear all button and add evenet to clearr all list items
+const clearBtn = document.querySelector(".clear-all");
+clearBtn.addEventListener('click', () => {
+    td_ul.innerHTML = "";
+})
+
