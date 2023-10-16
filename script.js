@@ -29,6 +29,9 @@ task_input.addEventListener('keypress', (e) => {
 const td_ul = document.getElementById("todo-list");
 
 let count = 0;
+// 0️⃣ create an empty array to save local storage keys
+let taskArray = [];
+
 
 // function to add task to the list
 function addTask() {
@@ -51,7 +54,11 @@ function addTask() {
             <label for="task${count}" class="task-label" class="form-check-label">${task_input.value}</label>
         `;
         // Save the task to the local storage
-        localStorage.setItem(`task${count}`, task_input.value)
+        localStorage.setItem(`${count}`, task_input.value);
+        // 0️⃣ save the localstorage keys to the array
+        taskArray.push(localStorage.getItem(`${count}`));
+        // console.log(taskArray);
+
 
         // Append the 'li' element to the 'ul' element
         td_ul.append(newLi);
@@ -61,16 +68,26 @@ function addTask() {
         task_input.focus();
     }
 
+    // 😊😊😊 Challenge: Adding strikethrough to the text 😊😊😊
+    taskDone();
+}
+
+function displayTask() {
+    
+}
+
+// function to add strikethrough for completed task
+function taskDone() {
     // get the array of all label elements of list
     const task = document.querySelectorAll(".task-label");
     // loop through the all list element
-    for(let i = 0; i < task.length; i++) {
+    for (let i = 0; i < task.length; i++) {
         // for each list label add click event 
         task[i].addEventListener('click', () => {
             // get the checkbox value and check is it checked or not
-            const checkTask = document.querySelector(`#task${i+1}`).checked; // true or false
+            const checkTask = document.querySelector(`#task${i + 1}`).checked; // true or false
             // if the checkbox is checked then change the text to strikethrough and vice versa
-            if(!checkTask) {
+            if (!checkTask) {
                 task[i].style = "text-decoration: line-through;"
             } else {
                 task[i].style = "text-decoration: none;"
@@ -78,21 +95,21 @@ function addTask() {
         })
     }
 }
-
 // --------------------------------------------------------------------------------
 
+document.addEventListener('DOMContentLoaded', () => {
+    for (let i = 1; i <= localStorage.length; i++) {
+        let newLi = document.createElement("li");
+        newLi.setAttribute("class", "list-group-item p-3");
+        newLi.innerHTML = `
+        <input type="checkbox" id="task${i}" class="form-check-input me-1">
+        <label for="task${i}" class="task-label" class="form-check-label">${localStorage.getItem(i)}</label>
+    `;
+        td_ul.append(newLi);
+    }
+    taskDone();
+})
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     // Create 'li' element 
-//     let li_el = document.createElement("li");
-//     li_el.setAttribute("class", "list-group-item p-3");
-//     const storageValue = localStorage.getItem()
-//     li_el.innerHTML = `
-//         <input type="checkbox" id="task${count}" class="form-check-input me-1">
-//         <label for="task${count}" id="task-label" class="form-check-label">${task_input.value}</label>
-//         `;
-//     td_ul.innerHTML = 
-// })
 
 // 🚩🚩 Clear button section 🚩🚩
 // Get the clear all button and add evenet to clear all list items
@@ -102,4 +119,6 @@ clearBtn.addEventListener('click', () => {
     count = 0;
     // Also clear the local storage
     localStorage.clear();
+    // 0️⃣ clear all the element on clear the local storage
+    taskArray = [];
 })
