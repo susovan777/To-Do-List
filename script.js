@@ -41,7 +41,7 @@ function addTask() {
     if (task_input.value) {
         // count variable is for separating task
         count++;
-
+/**
         // Create new 'li' element; Do this every time when some input is there
         let newLi = document.createElement("li");
 
@@ -53,15 +53,18 @@ function addTask() {
             <input type="checkbox" id="task${count}" class="form-check-input me-1">
             <label for="task${count}" class="task-label" class="form-check-label">${task_input.value}</label>
         `;
+
+        // Append the 'li' element to the 'ul' element
+        td_ul.append(newLi);
+ */
+        displayTask(count);
+
         // Save the task to the local storage
         localStorage.setItem(`${count}`, task_input.value);
         // 0️⃣ save the localstorage keys to the array
         taskArray.push(localStorage.getItem(`${count}`));
         // console.log(taskArray);
 
-
-        // Append the 'li' element to the 'ul' element
-        td_ul.append(newLi);
 
         // After adding task to the list 🦷 clear the input field and 🦷 focus on the input field
         task_input.value = "";
@@ -72,8 +75,21 @@ function addTask() {
     taskDone();
 }
 
-function displayTask() {
-    
+function displayTask(id) {
+    // Create new 'li' element; Do this every time when some input is there
+    let newLi = document.createElement("li");
+
+    // Set bootstarp class: "list-group-item p-3"
+    newLi.setAttribute("class", "list-group-item p-3");
+
+    // Add the innerHTML for checkbox and label text
+    newLi.innerHTML = `
+    <input type="checkbox" id="task${id}" class="form-check-input me-1">
+    <label for="task${id}" class="task-label" class="form-check-label">${task_input.value}</label>
+`;
+
+    // Append the 'li' element to the 'ul' element
+    td_ul.append(newLi);
 }
 
 // function to add strikethrough for completed task
@@ -82,21 +98,34 @@ function taskDone() {
     const task = document.querySelectorAll(".task-label");
     // loop through the all list element
     for (let i = 0; i < task.length; i++) {
+        // get the checkbox value 
+        const checkTask = document.querySelector(`#task${i + 1}`);
+
+        // if (!checkTask.checked) {
+        //     task[i].style = "text-decoration: line-through;"
+        // } else {
+        //     task[i].style = "text-decoration: none;"
+        // }
+
         // for each list label add click event 
         task[i].addEventListener('click', () => {
-            // get the checkbox value and check is it checked or not
-            const checkTask = document.querySelector(`#task${i + 1}`).checked; // true or false
+            // check the chckbox is checked or not
+            const isChecked = checkTask.checked; // true or false
+
             // if the checkbox is checked then change the text to strikethrough and vice versa
-            if (!checkTask) {
+            if (!isChecked) {
                 task[i].style = "text-decoration: line-through;"
             } else {
                 task[i].style = "text-decoration: none;"
             }
         })
+
+
     }
 }
 // --------------------------------------------------------------------------------
 
+// if the page is refreshed or reloaded then show all the previous tasks
 document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= localStorage.length; i++) {
         let newLi = document.createElement("li");
@@ -122,3 +151,5 @@ clearBtn.addEventListener('click', () => {
     // 0️⃣ clear all the element on clear the local storage
     taskArray = [];
 })
+
+// after refresh complered task also uncompleted
