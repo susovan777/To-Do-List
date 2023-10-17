@@ -19,7 +19,6 @@ task_input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         e.preventDefault();
         addTask();
-        addBtn.click();
     }
 });
 // --------------------------------------------------------------------------------
@@ -29,8 +28,6 @@ task_input.addEventListener('keypress', (e) => {
 const td_ul = document.getElementById("todo-list");
 
 let count = 0;
-// 0️⃣ create an empty array to save local storage keys
-let taskArray = [];
 
 
 // function to add task to the list
@@ -41,30 +38,12 @@ function addTask() {
     if (task_input.value) {
         // count variable is for separating task
         count++;
-/**
-        // Create new 'li' element; Do this every time when some input is there
-        let newLi = document.createElement("li");
 
-        // Set bootstarp class: "list-group-item p-3"
-        newLi.setAttribute("class", "list-group-item p-3");
-
-        // Add the innerHTML for checkbox and label text
-        newLi.innerHTML = `
-            <input type="checkbox" id="task${count}" class="form-check-input me-1">
-            <label for="task${count}" class="task-label" class="form-check-label">${task_input.value}</label>
-        `;
-
-        // Append the 'li' element to the 'ul' element
-        td_ul.append(newLi);
- */
+        // calling the function to display the task
         displayTask(count);
 
         // Save the task to the local storage
         localStorage.setItem(`${count}`, task_input.value);
-        // 0️⃣ save the localstorage keys to the array
-        taskArray.push(localStorage.getItem(`${count}`));
-        // console.log(taskArray);
-
 
         // After adding task to the list 🦷 clear the input field and 🦷 focus on the input field
         task_input.value = "";
@@ -75,6 +54,8 @@ function addTask() {
     taskDone();
 }
 
+// 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥 Small functions to handle task 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥
+// ⏺️ function to display the task to the list
 function displayTask(id) {
     // Create new 'li' element; Do this every time when some input is there
     let newLi = document.createElement("li");
@@ -92,7 +73,7 @@ function displayTask(id) {
     td_ul.append(newLi);
 }
 
-// function to add strikethrough for completed task
+// ⏺️ function to add strikethrough for completed task
 function taskDone() {
     // get the array of all label elements of list
     const task = document.querySelectorAll(".task-label");
@@ -123,6 +104,7 @@ function taskDone() {
 
     }
 }
+// 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥
 // --------------------------------------------------------------------------------
 
 // if the page is refreshed or reloaded then show all the previous tasks
