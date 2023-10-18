@@ -81,8 +81,9 @@ function taskDone() {
     for (let i = 0; i < task.length; i++) {
         // get the checkbox value 
         const checkTask = document.querySelector(`#task${i + 1}`);
+        // const isChecked = checkTask.checked; // true or false
 
-        // if (!checkTask.checked) {
+        // if (!isChecked) {
         //     task[i].style = "text-decoration: line-through;"
         // } else {
         //     task[i].style = "text-decoration: none;"
@@ -109,6 +110,8 @@ function taskDone() {
 
 // if the page is refreshed or reloaded then show all the previous tasks
 document.addEventListener('DOMContentLoaded', () => {
+    task_input.focus(); // after refresh the page focus on input field
+    count = localStorage.length;
     for (let i = 1; i <= localStorage.length; i++) {
         let newLi = document.createElement("li");
         newLi.setAttribute("class", "list-group-item p-3");
@@ -131,7 +134,6 @@ clearBtn.addEventListener('click', () => {
     // Also clear the local storage
     localStorage.clear();
     // 0️⃣ clear all the element on clear the local storage
-    taskArray = [];
 })
 
 // after refresh complered task also uncompleted
