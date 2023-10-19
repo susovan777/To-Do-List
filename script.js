@@ -28,9 +28,10 @@ task_input.addEventListener('keypress', (e) => {
 const td_ul = document.getElementById("todo-list");
 
 let count = 0;
+const taskDetails = {};
 
-
-// function to add task to the list
+// 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥 Small functions to handle task 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥
+// ⏺️ function to add task to the list
 function addTask() {
     // console.log(task_input.value);
 
@@ -42,19 +43,20 @@ function addTask() {
         // calling the function to display the task
         displayTask(count);
 
+        taskDetails.taskName = `${task_input.value}`;
+
         // Save the task to the local storage
-        localStorage.setItem(`${count}`, task_input.value);
+        localStorage.setItem(`${count}`, JSON.stringify(taskDetails));
 
         // After adding task to the list 🦷 clear the input field and 🦷 focus on the input field
         task_input.value = "";
         task_input.focus();
-    }
+    } else alert ("Good day!! Atleast add any task to start you day 😊.");
 
-    // 😊😊😊 Challenge: Adding strikethrough to the text 😊😊😊
+    // 😊😊😊 Challenge done: Adding strikethrough to the text 😊😊😊
     taskDone();
 }
 
-// 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥 Small functions to handle task 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥
 // ⏺️ function to display the task to the list
 function displayTask(id) {
     // Create new 'li' element; Do this every time when some input is there
@@ -81,28 +83,17 @@ function taskDone() {
     for (let i = 0; i < task.length; i++) {
         // get the checkbox value 
         const checkTask = document.querySelector(`#task${i + 1}`);
-        // const isChecked = checkTask.checked; // true or false
+        const existLocalStorageData = JSON.parse(localStorage.getItem(i));
 
-        // if (!isChecked) {
-        //     task[i].style = "text-decoration: line-through;"
-        // } else {
-        //     task[i].style = "text-decoration: none;"
-        // }
-
-        // for each list label add click event 
-        task[i].addEventListener('click', () => {
-            // check the chckbox is checked or not
-            const isChecked = checkTask.checked; // true or false
-
-            // if the checkbox is checked then change the text to strikethrough and vice versa
-            if (!isChecked) {
+        // if checkbox value changed then ap[ly the rules
+        checkTask.addEventListener('change', e => {
+            const isChecked = e.target.checked; // true or false
+            if (isChecked) {
                 task[i].style = "text-decoration: line-through;"
             } else {
                 task[i].style = "text-decoration: none;"
             }
         })
-
-
     }
 }
 // 🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥🚥
@@ -111,13 +102,15 @@ function taskDone() {
 // if the page is refreshed or reloaded then show all the previous tasks
 document.addEventListener('DOMContentLoaded', () => {
     task_input.focus(); // after refresh the page focus on input field
-    count = localStorage.length;
+    count = localStorage.length; // assign the previous count value
+
     for (let i = 1; i <= localStorage.length; i++) {
         let newLi = document.createElement("li");
         newLi.setAttribute("class", "list-group-item p-3");
         newLi.innerHTML = `
         <input type="checkbox" id="task${i}" class="form-check-input me-1">
-        <label for="task${i}" class="task-label" class="form-check-label">${localStorage.getItem(i)}</label>
+        <label for="task${i}" class="task-label" class="form-check-label">${JSON.parse(localStorage.getItem(i)).taskName}
+        </label>
     `;
         td_ul.append(newLi);
     }
