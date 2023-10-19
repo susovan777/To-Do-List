@@ -83,15 +83,20 @@ function taskDone() {
     for (let i = 0; i < task.length; i++) {
         // get the checkbox value 
         const checkTask = document.querySelector(`#task${i + 1}`);
-        const existLocalStorageData = JSON.parse(localStorage.getItem(i));
+
+        const savedTask = JSON.parse(localStorage.getItem(`${i+1}`));
 
         // if checkbox value changed then ap[ly the rules
         checkTask.addEventListener('change', e => {
             const isChecked = e.target.checked; // true or false
             if (isChecked) {
                 task[i].style = "text-decoration: line-through;"
+                savedTask['taskDone'] = isChecked;
+                localStorage.setItem(`${i+1}`, JSON.stringify(savedTask))
             } else {
                 task[i].style = "text-decoration: none;"
+                savedTask['taskDone'] = isChecked;
+                localStorage.setItem(`${i+1}`, JSON.stringify(savedTask))
             }
         })
     }
